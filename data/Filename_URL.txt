@@ -1,0 +1,6 @@
+1.txt http://en.wikipedia.org/wiki/Tintin_in_the_Congo
+2.txt http://en.wikipedia.org/wiki/Tabu_search
+3.txt http://en.wikipedia.org/wiki/Local_search_(optimization)
+4.txt http://en.wikipedia.org/wiki/Computer_science
+5.txt http://en.wikipedia.org/wiki/Information
+6.txt http://en.wikipedia.org/wiki/Wikipedia
