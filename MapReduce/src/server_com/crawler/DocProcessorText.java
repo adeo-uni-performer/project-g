@@ -19,7 +19,6 @@ public class DocProcessorText {
      */
     public void processDocument( Document doc , String url ){
         int level = getLevel(url);
-        File file = getLinkFile(level);
         Parameters.checkDirectorySetupCrawlerText();
         System.out.println("[ level= " + level + " , url= " +url +" ]");
         storingDocument(doc , level, url);
@@ -33,17 +32,28 @@ public class DocProcessorText {
      */
     private void storingDocument(Document doc, int level, String url){
         String[] fileName = url.split("/");
-        String filePath = getPathLevelDataFolder(level)+".txt";
+        String filePath = getPathLevelDataFolder(level);
         File file = new File(filePath);
-        System.out.println("filePath: " + filePath);
+        File fileList = getLinkFile(level);
+
+        try {
+            PrintStream theOutList = new PrintStream(
+                    new BufferedOutputStream(
+                            new FileOutputStream(fileList,true)));
+
+            String str = filePath + Parameters.delimiter + url;
+            theOutList.println(str);
+            theOutList.flush();
+
+        }catch(IOException e ){
+            System.out.println("Error Print Stream");
+            System.out.println("Check Directory Structure");
+        }
+
         try {
             PrintStream theOut = new PrintStream(
                     new BufferedOutputStream(
                             new FileOutputStream(file)));
-            System.out.println("Storing Document in: " + filePath +"\n" +
-                    "url----> " + fileName[fileName.length-1]);
-            System.out.println("Check Storing");
-
             Elements textArray = doc.select("p");
             writeToFile(textArray, theOut);
 
@@ -62,11 +72,11 @@ public class DocProcessorText {
         ArrayList<String> stop_words = new ArrayList<String>(Arrays.asList(Parameters.weakWords()));
         for(Element container : textArray){
             String text = container.text();
-            for(String s : text.split(" ")){
+            for (String s : text.split(" ")){
                 if( ! stop_words.contains(s) ){
                     if( ! isNumeric(s)){
                         String str = s.replaceAll("[^\\p{Alpha}]+","").trim().toLowerCase();
-                        if(str!="" || str!=" "){
+                        if(!str.equals("") || !str.equals(" ")){
                             theOut.println(str);
                         }
                     }
@@ -115,11 +125,11 @@ public class DocProcessorText {
     private File getLinkFile(int level){
         switch (level){
             case 0:
-                return new File("task_1/text_files/wikipedia/level_0/links.html");
+                return new File("task_1/text_files/wikipedia/links.txt");
             case 1:
-                return new File("task_1/text_files/wikipedia/level_0/level_1/links.html");
+                return new File("task_1/text_files/wikipedia/links.txt");
             case 2:
-                return new File("task_1/text_files/wikipedia/level_0/level_1/level_2/links.html");
+                return new File("task_1/text_files/wikipedia/links.txt");
             default:
                 System.err.println("Error in getLinkFile, level not recognised");
                 System.exit(1);
@@ -136,11 +146,11 @@ public class DocProcessorText {
         Random randomGenerator = new Random();
         switch (level){
             case 0:
-                return "task_1/text_files/wikipedia/level_0/files/"+randomGenerator.nextInt(100000000);
+                return "task_1/text_files/wikipedia/files/"+randomGenerator.nextInt(100000000);
             case 1:
-                return "task_1/text_files/wikipedia/level_0/level_1/files/"+randomGenerator.nextInt(100000000);
+                return "task_1/text_files/wikipedia/files/"+randomGenerator.nextInt(100000000);
             case 2:
-                return  "task_1/text_files/wikipedia/level_0/level_1/level_2/files/"+randomGenerator.nextInt(100000000);
+                return  "task_1/text_files/wikipedia/files/"+randomGenerator.nextInt(100000000);
             default:
                 System.err.println("Error in getPathLevelDataFolder, level not recognised");
                 System.exit(1);

@@ -5,6 +5,8 @@ import java.io.File;
 
 public class Parameters {
 
+    public static String delimiter = " ";
+
     /**
      * get Username
      * For Connection With Proxy
@@ -57,12 +59,7 @@ public class Parameters {
                 "task_1",
                 "task_1/text_files",
                 "task_1/text_files/wikipedia",
-                "task_1/text_files/wikipedia/level_0",
-                "task_1/text_files/wikipedia/level_0/files",
-                "task_1/text_files/wikipedia/level_0/level_1",
-                "task_1/text_files/wikipedia/level_0/level_1/files",
-                "task_1/text_files/wikipedia/level_0/level_1/level_2",
-                "task_1/text_files/wikipedia/level_0/level_1/level_2/files",
+                "task_1/text_files/wikipedia/files"
         };
         return structure;
     }

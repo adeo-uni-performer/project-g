@@ -12,7 +12,8 @@ public class Main {
     public static void main(String[] args){
         System.out.println("Started Crawler Text");
         String[] urlPaths = {
-                "http://en.wikipedia.org/wiki/Main_Page"
+                "http://en.wikipedia.org/wiki/Main_Page",
+                "http://en.wikipedia.org/wiki/Hugh_Walpole"
         };
         CrawlerText crawler = new CrawlerText();
         int i;
